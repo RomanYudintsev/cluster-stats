@@ -2,6 +2,8 @@ package org.zeroturnaround.stats;
 
 import hudson.EnvVars;
 import hudson.Extension;
+import hudson.model.FreeStyleBuild;
+import hudson.model.Result;
 import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.model.listeners.RunListener;
@@ -27,10 +29,19 @@ public class StartCompleteListener extends RunListener<Run> {
     super.onCompleted(r, listener);
     ClusterStatisticsPlugin plugin = ClusterStatisticsPlugin.getInstance();
     RunStats stats = plugin.getStatsData().popUnInitializedItem(r.getParent().getName());
-    if (stats != null) {
-      stats.setDuration(r.getDuration());
-      stats.setStarted(r.getTimeInMillis());
+    String nameJob = ((FreeStyleBuild) r).getProject().getName();
+      if (nameJob.contains("ci-test"))
+          return;
 
+    if (stats != null) {
+      if (r.getResult() != Result.SUCCESS)
+      {
+        stats.setFailedCount(1);
+      } else {
+        stats.setDuration(r.getDuration());
+      }
+
+      stats.setStarted(r.getTimeInMillis());
       String nodeName = "master";
 
       try {

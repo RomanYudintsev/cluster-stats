@@ -214,6 +214,46 @@ public class StatsData {
       return 0L;
   }
 
+  public int getFailed() {
+    long total = 0;
+    long failed = 0;
+
+    for (Iterator<RunStats> ite = runStats.iterator(); ite.hasNext();) {
+      RunStats stats = (RunStats) ite.next();
+      failed += stats.getFailedCount();
+      total++;
+    }
+
+    if (failed > 0)
+      return (int) (100 * failed / total);
+    else
+      return 0;
+  }
+
+  public int getFailedTrailingWeek() {
+    final long sevenDaysAgo = System.currentTimeMillis() - (7 * DAY_IN_MS);
+
+    List<RunStats> copyRunStats = new ArrayList<RunStats>(runStats);
+    long total = 0;
+    long failed = 0;
+    for (int i = copyRunStats.size() - 1; i > -1; i--) {
+      RunStats stats = copyRunStats.get(i);
+
+      if (stats.getStarted() <= sevenDaysAgo) {
+        continue;
+      }
+      else {
+        total++;
+        failed += stats.getFailedCount();;
+      }
+    }
+
+    if (total > 0)
+      return (int) (100 * failed / total);
+    else
+      return 0;
+  }
+
   public long getAvgDurationTrailingWeek() {
     final long sevenDaysAgo = System.currentTimeMillis() - (7 * DAY_IN_MS);
 

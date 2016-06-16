@@ -12,6 +12,7 @@ public class RunStats {
   private String projectName;
   private String nodeName;
   private final String uuid;
+  private int failedCount;
 
   public RunStats() {
     super();
@@ -45,6 +46,14 @@ public class RunStats {
 
   public void setDuration(long duration) {
     this.duration = duration;
+  }
+
+  public int getFailedCount(){
+    return failedCount;
+  }
+
+  public void setFailedCount(int value){
+    failedCount = value;
   }
 
   public long getStarted() {
