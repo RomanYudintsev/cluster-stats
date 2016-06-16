@@ -224,7 +224,7 @@ public class StatsData {
       total++;
     }
 
-    if (failed > 0)
+    if (total > 0)
       return (int) (100 * failed / total);
     else
       return 0;
@@ -244,7 +244,7 @@ public class StatsData {
       }
       else {
         total++;
-        failed += stats.getFailedCount();;
+        failed += stats.getFailedCount();
       }
     }
 

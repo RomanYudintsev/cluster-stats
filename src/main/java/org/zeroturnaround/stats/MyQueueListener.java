@@ -17,7 +17,7 @@ public class MyQueueListener extends QueueListener {
   public void onEnterWaiting(WaitingItem wi) {
     RunStats stats = new RunStats();
     stats.setProjectName(wi.task.getName());
-    stats.setQueueId(wi.id);
+    stats.setQueueId((int) wi.getId());
 
     ClusterStatisticsPlugin plugin = ClusterStatisticsPlugin.getInstance();
     plugin.getStatsData().addToEdenSpace(stats);
@@ -26,7 +26,7 @@ public class MyQueueListener extends QueueListener {
   @Override
   public void onLeft(LeftItem li) {
     ClusterStatisticsPlugin plugin = ClusterStatisticsPlugin.getInstance();
-    RunStats stats = plugin.getStatsData().getUnInitializedItem(li.id);
+    RunStats stats = plugin.getStatsData().getUnInitializedItem((int) li.getId());
     if (stats != null) {
       stats.setStarted(System.currentTimeMillis());
     }

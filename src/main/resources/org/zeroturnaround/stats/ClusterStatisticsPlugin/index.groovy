@@ -89,14 +89,14 @@ l.layout(title: _("Cluster Statistics"), secured: "true") {
       text("Build failed count: ")
       b(statsData.getFailed())
       text(" % (all time) ")
-      b(Util.getTimeSpanString(statsData.getFailedTrailingWeek()))
+      b(statsData.getFailedTrailingWeek())
       text(" % (trailing 7 days). ")
       //raw(""" <a href="#" onClick="toggleNodeView('buildNodes');return false;">Show by Jobs</a>""")
       //br()
       //text("95th percentile: " + Util.getTimeSpanString(statsData.getDurationPercentile(95)))
 
-      //Map perNode = statsData.getAvgDurationPerNode();
-      //perNode = perNode.sort{a, b -> b.value <=> a.value}
+      /*Map perNode = statsData.getAvgDurationPerNode();
+      perNode = perNode.sort{a, b -> b.value <=> a.value}
 
       raw("""<div id="buildNodes" style="visibility:hidden;display:none"><table class="stats">""")
       tr() {
@@ -117,7 +117,7 @@ l.layout(title: _("Cluster Statistics"), secured: "true") {
           }
         }
       }
-      raw("</table></div>")
+      raw("</table></div>")*/
     }
     
     h2("Wait time in queue")
