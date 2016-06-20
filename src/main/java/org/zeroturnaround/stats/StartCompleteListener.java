@@ -30,7 +30,7 @@ public class StartCompleteListener extends RunListener<Run> {
     ClusterStatisticsPlugin plugin = ClusterStatisticsPlugin.getInstance();
     RunStats stats = plugin.getStatsData().popUnInitializedItem(r.getParent().getName());
     String nameJob = ((FreeStyleBuild) r).getProject().getName();
-      if (nameJob.contains("ci-test"))
+      if (nameJob.contains("ci-test") || nameJob.contains("_plugin"))
           return;
 
     if (stats != null) {
