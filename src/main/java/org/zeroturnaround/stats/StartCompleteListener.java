@@ -2,10 +2,7 @@ package org.zeroturnaround.stats;
 
 import hudson.EnvVars;
 import hudson.Extension;
-import hudson.model.FreeStyleBuild;
-import hudson.model.Result;
-import hudson.model.Run;
-import hudson.model.TaskListener;
+import hudson.model.*;
 import hudson.model.listeners.RunListener;
 import hudson.util.LogTaskListener;
 
@@ -29,7 +26,7 @@ public class StartCompleteListener extends RunListener<Run> {
     super.onCompleted(r, listener);
     ClusterStatisticsPlugin plugin = ClusterStatisticsPlugin.getInstance();
     RunStats stats = plugin.getStatsData().popUnInitializedItem(r.getParent().getName());
-    String nameJob = ((FreeStyleBuild) r).getProject().getName();
+    String nameJob = ((Build) r).getProject().getName();
       if (nameJob.contains("ci-test") || nameJob.contains("_plugin"))
           return;
 
